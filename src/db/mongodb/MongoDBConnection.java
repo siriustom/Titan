@@ -93,6 +93,7 @@ public class MongoDBConnection implements DBConnection {
 			builder.setSnippetUrl(doc.getString("snippet_url"));
 			builder.setImageUrl(doc.getString("image_url"));
 			builder.setUrl(doc.getString("url"));
+			builder.setCategories(this.getCategories(doc.getString("item_id")));
 			favoriteItems.add(builder.build());
 		}
 		return favoriteItems;

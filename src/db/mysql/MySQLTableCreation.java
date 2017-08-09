@@ -70,6 +70,7 @@ public class MySQLTableCreation {
 			// Step 3: insert data
 			// Create a fake user
 			sql = "INSERT INTO users " + "VALUES (\"1111\", \"3229c1097c00d497a0fd282d586be050\", \"John\", \"Smith\")";
+	
 
 			System.out.println("Executing query:\n" + sql);
 			stmt.executeUpdate(sql);

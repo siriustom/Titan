@@ -11,6 +11,7 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.IndexOptions;
+import com.mongodb.client.model.Indexes;
 import com.mongodb.client.model.UpdateOptions;
 
 import db.mongodb.MongoDBUtil;
@@ -31,11 +32,14 @@ public class Purify {
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			while ((line = bufferedReader.readLine()) != null) {
 				String[] values = line.split(",");
-				UpdateOptions indexOptions = new UpdateOptions().upsert(true);
-//				db.getCollection("ratings").insertOne(new Document().append("user", values[0]).append("item", values[1])
-//						.append("rating", Double.parseDouble(values[2])));
-				db.getCollection("ratings").updateOne(new Document().append("user", values[0]).append("item", values[1]),
-						new Document().append("user", values[0]).append("item", values[1]).append("rating", Double.parseDouble(values[2])), indexOptions);
+				IndexOptions indexOptions = new IndexOptions().unique(true);
+				db.getCollection("ratings").createIndex(Indexes.compoundIndex(Indexes.ascending("user"), Indexes.ascending("item")), indexOptions);
+				db.getCollection("ratings").insertOne(new Document().append("user", values[0]).append("item", values[1])
+						.append("rating", Double.parseDouble(values[2])));
+
+//				db.getCollection("ratings").updateOne(
+//						new Document().append("user", values[0]).append("item", values[1]),
+//						new Document("$set", new Document().append("rating", Double.parseDouble(values[2]))), indexOptions);
 			}
 			System.out.println("Import Done!");
 			bufferedReader.close();

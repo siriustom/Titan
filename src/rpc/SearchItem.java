@@ -17,6 +17,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 import db.DBConnection;
 import db.DBConnectionFactory;
 import entity.Item;
@@ -27,15 +31,16 @@ import external.ExternalAPIFactory;
  * Servlet implementation class SeachItem
  */
 @WebServlet("/search") //the URL postfix where HTTP request will be sent to
-public class SeachItem extends HttpServlet {
+public class SearchItem extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DBConnection conn = DBConnectionFactory.getDBConnection();
+	private static final Logger LOGGER = Logger.getLogger(SearchItem.class.getName()); // for ELK project
 
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SeachItem() {
+    public SearchItem() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -44,19 +49,19 @@ public class SeachItem extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
-		if (session.getAttribute("user") == null) {
-			response.setStatus(403);
-			return;
-		}
-
+		 HttpSession session = request.getSession();
+		 if (session.getAttribute("user") == null) {
+		 	response.setStatus(403);
+		 	return;
+		 }
+		
+//		String userId = "1111"; //for ELK project
 		String userId = session.getAttribute("user").toString();
-//		String userId = request.getParameter("user_id");
 		double lat = Double.parseDouble(request.getParameter("lat"));
 		double lon = Double.parseDouble(request.getParameter("lon"));
 		// Term can be empty or null.
 		String term = request.getParameter("term");
+		LOGGER.log(Level.INFO, "lat:" + lat + ",lon:" + lon);
 		List<Item> items = conn.searchItems(userId, lat, lon, term);
 		List<JSONObject> list = new ArrayList<>();
 		Set<String> favorite = conn.getFavoriteItemIds(userId);

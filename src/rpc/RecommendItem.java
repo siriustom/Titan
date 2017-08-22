@@ -44,7 +44,6 @@ public class RecommendItem extends HttpServlet {
 	}
 
 	String userId = session.getAttribute("user").toString();
-//	String userId = request.getParameter("user_id");
     double lat = Double.parseDouble(request.getParameter("lat"));
     double lon = Double.parseDouble(request.getParameter("lon"));
     Recommendation recommendation = new GeoRecommendation();

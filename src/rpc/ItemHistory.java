@@ -49,7 +49,6 @@ public class ItemHistory extends HttpServlet {
 			return;
 		}
 		String userId = session.getAttribute("user").toString();
-//		String userId = request.getParameter("user_id");
 		Set<Item> items = conn.getFavoriteItems(userId);
 		JSONArray array = new JSONArray();
 		for (Item item : items) {
@@ -79,7 +78,6 @@ public class ItemHistory extends HttpServlet {
 		String userId = session.getAttribute("user").toString();
 		try {
 			JSONObject input = RpcHelper.readJsonObject(request);
-//			String userId = input.getString("user_id");
 			JSONArray array = (JSONArray) input.get("favorite");
 
 			List<String> histories = new ArrayList<>();
@@ -109,7 +107,6 @@ public class ItemHistory extends HttpServlet {
 		String userId = session.getAttribute("user").toString();
 		try {
 			JSONObject input = RpcHelper.readJsonObject(request);
-//			String userId = input.getString("user_id");
 			JSONArray array = (JSONArray) input.get("favorite");
 
 			List<String> histories = new ArrayList<>();

@@ -19,21 +19,22 @@ import entity.Item.ItemBuilder;
 public class TicketMasterAPI implements ExternalAPI {
 	private static final String API_HOST = "app.ticketmaster.com";
 	private static final String SEARCH_PATH = "/discovery/v2/events.json";
-	private static final String DEFAULT_TERM = "";  // no restriction
-	private static final String API_KEY = "4GTp2d8tsppmOI4shlmGIgyG3UNiZo1R";
-
+	private static final String DEFAULT_TERM = "ticket";  // no restriction
+	private static final String API_KEY = "Jnt6QHEgL77JF2GP093dwJapLSSbAhV9";
+	
 	/**
 	 * Creates and sends a request to the TicketMaster API by term and location.
 	 */
 	@Override
 	public List<Item> search(double lat, double lon, String term) {
 		String url = "http://" + API_HOST + SEARCH_PATH;
-		String latlong = lat + "," + lon;
+		// Convert geo location to geo hash with a precision of 4 (+- 20km)
+		String geohash = GeoHash.encodeGeohash(lat, lon, 4);
 		if (term == null) {
 			term = DEFAULT_TERM;
 		}
 		term = urlEncodeHelper(term);
-		String query = String.format("apikey=%s&latlong=%s&keyword=%s", API_KEY, latlong, term);
+		String query = String.format("apikey=%s&geoPoint=%s&keyword=%s", API_KEY, geohash, term);
 		try {
 			HttpURLConnection connection = (HttpURLConnection) new URL(url + "?" + 
 					query).openConnection();

@@ -20,6 +20,7 @@
 
 		validateSession();
 
+// for us to skip login part
 //		onSessionValid({
 //			user_id : '1111',
 //			name : 'John Smith'

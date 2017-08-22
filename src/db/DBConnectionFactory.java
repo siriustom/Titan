@@ -6,7 +6,7 @@ import db.mysql.MySQLConnection;
 
 public class DBConnectionFactory {
 
-	// This should change based on the pipeline.
+	// This should change based on the pipeline, it is hardcoded just for demonstration
 	private static final String DEFAULT_DB = "mysql";
 
 	// Create a DBConnection based on given db type.
@@ -16,13 +16,12 @@ public class DBConnectionFactory {
 			return MySQLConnection.getInstance();
 		case "mongodb":
 			return MongoDBConnection.getInstance();
-		// You may try other dbs and add them here.
+		// We can try other dbs and add them here.
 		default:
 			throw new IllegalArgumentException("Invalid db " + db);
 		}
 	}
 
-	// This is overloading not overriding.
 	public static DBConnection getDBConnection() {
 		return getDBConnection(DEFAULT_DB);
 	}

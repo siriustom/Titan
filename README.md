@@ -4,7 +4,7 @@ A Java Web Service Development – Event Search and Ticket Recommendation An onl
 
 ## Deployment
 
-Ticket+ Website URL: http://54.218.246.72/Titan/index.html#    user: 1111 password: 2222
+Ticket+ Website URL: http://54.149.201.164/Titan/index.html#    user: 1111 password: 2222
 
 ## Built With
 

@@ -4,7 +4,7 @@ A Java Web Service Development – Event Search and Ticket Recommendation An onl
 
 ## Deployment
 
-Ticket+ Website URL: http://ec2-54-189-113-28.us-west-2.compute.amazonaws.com/Titan/    user: 1111 password: 2222
+Ticket+ Website URL: http://ec2-54-189-113-28.us-west-2.compute.amazonaws.com/Titan/#    user: 1111 password: 2222
 
 ## Built With
 
